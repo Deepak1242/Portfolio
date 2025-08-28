@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Certified Web Developer",
+    "organization": "Example Org",
+    "date": "2023-02-28",
+    "credentialId": "12345-ABCDE",
+    "certificateLink": "https://example.com/certificate/1"
+  },
+  {
+    "id": 2,
+    "name": "Advanced JavaScript",
+    "organization": "Example Org",
+    "date": "2023-04-15",
+    "credentialId": "67890-FGHIJ",
+    "certificateLink": "https://example.com/certificate/2"
+  },
+  {
+    "id": 3,
+    "name": "React - The Complete Guide",
+    "organization": "Example Org",
+    "date": "2023-06-10",
+    "credentialId": "11223-KLMNO",
+    "certificateLink": "https://example.com/certificate/3"
+  },
+  {
+    "id": 4,
+    "name": "Next.js and React - The Full Course",
+    "organization": "Example Org",
+    "date": "2023-09-01",
+    "credentialId": "44556-PQRST",
+    "certificateLink": "https://example.com/certificate/4"
+  },
+  {
+    "id": 5,
+    "name": "Full-Stack Web Development",
+    "organization": "Example Org",
+    "date": "2024-03-15",
+    "credentialId": "77889-UVWXY",
+    "certificateLink": "https://example.com/certificate/5"
+  }
+]
