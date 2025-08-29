@@ -1,49 +1,56 @@
-import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const certificationsFilePath = path.join(
-  process.cwd(),
-  "data",
-  "certifications.json"
-);
-
-const readCertificationsFromFile = () => {
-  const fileContent = fs.readFileSync(certificationsFilePath, "utf-8");
-  return JSON.parse(fileContent);
-};
-
-const writeCertificationsToFile = (certifications: any) => {
-  fs.writeFileSync(
-    certificationsFilePath,
-    JSON.stringify(certifications, null, 2)
-  );
-};
+import { NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
 export async function GET() {
   try {
-    const certifications = readCertificationsFromFile();
-    return NextResponse.json(certifications);
+    const certifications = await prisma.certification.findMany({
+      orderBy: { createdAt: 'desc' }
+    })
+
+    // Return data in the format expected by the frontend
+    const formattedCertifications = certifications.map(cert => ({
+      id: cert.id,
+      title: cert.title,
+      issuer: cert.issuer,
+      imageUrl: cert.imageUrl,
+      credentialId: cert.credentialId,
+      credentialUrl: cert.credentialUrl,
+      issueDate: cert.issueDate.toISOString().split('T')[0],
+      createdAt: cert.createdAt.toISOString(),
+      updatedAt: cert.updatedAt.toISOString()
+    }))
+
+    return NextResponse.json(formattedCertifications)
   } catch (error) {
+    console.error('Error fetching certifications:', error)
     return NextResponse.json(
       { message: "Error reading certifications data" },
       { status: 500 }
-    );
+    )
   }
 }
 
 export async function POST(request: Request) {
   try {
-    const newCertification = await request.json();
-    const certifications = readCertificationsFromFile();
-    newCertification.id = certifications.length > 0 ? Math.max(...certifications.map((c: any) => c.id)) + 1 : 1;
-    certifications.push(newCertification);
-    writeCertificationsToFile(certifications);
-    return NextResponse.json(newCertification, { status: 201 });
+    const { title, issuer, issueDate, credentialId, credentialUrl, imageUrl } = await request.json()
+
+    const newCertification = await prisma.certification.create({
+      data: {
+        title,
+        issuer,
+        imageUrl: imageUrl || '',
+        credentialId: credentialId || null,
+        credentialUrl: credentialUrl || null,
+        issueDate: new Date(issueDate)
+      }
+    })
+
+    return NextResponse.json(newCertification, { status: 201 })
   } catch (error) {
+    console.error('Error creating certification:', error)
     return NextResponse.json(
       { message: "Error creating certification" },
       { status: 500 }
-    );
+    )
   }
 }

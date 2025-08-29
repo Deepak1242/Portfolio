@@ -1,64 +1,51 @@
-import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const projectsFilePath = path.join(process.cwd(), "data", "projects.json");
-
-const readProjectsFromFile = () => {
-  const fileContent = fs.readFileSync(projectsFilePath, "utf-8");
-  return JSON.parse(fileContent);
-};
-
-const writeProjectsToFile = (projects: any) => {
-  fs.writeFileSync(projectsFilePath, JSON.stringify(projects, null, 2));
-};
+import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
 export async function PUT(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    const projectId = parseInt(params.id, 10);
-    const updatedProjectData = await request.json();
-    let projects = readProjectsFromFile();
-    const projectIndex = projects.findIndex((p: any) => p.id === projectId);
+    const { title, description, imageUrl, githubUrl, demoUrl, technologies, featured } = await request.json()
 
-    if (projectIndex === -1) {
-      return NextResponse.json({ message: "Project not found" }, { status: 404 });
-    }
+    const updatedProject = await prisma.project.update({
+      where: { id: params.id },
+      data: {
+        title,
+        description,
+        imageUrl: imageUrl || '',
+        githubUrl: githubUrl || null,
+        demoUrl: demoUrl || null,
+        technologies,
+        featured: featured || false
+      }
+    })
 
-    projects[projectIndex] = { ...projects[projectIndex], ...updatedProjectData };
-    writeProjectsToFile(projects);
-
-    return NextResponse.json(projects[projectIndex]);
+    return NextResponse.json(updatedProject)
   } catch (error) {
+    console.error('Error updating project:', error)
     return NextResponse.json(
       { message: "Error updating project" },
       { status: 500 }
-    );
+    )
   }
 }
 
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    const projectId = parseInt(params.id, 10);
-    let projects = readProjectsFromFile();
-    const filteredProjects = projects.filter((p: any) => p.id !== projectId);
-
-    if (projects.length === filteredProjects.length) {
-      return NextResponse.json({ message: "Project not found" }, { status: 404 });
-    }
-
-    writeProjectsToFile(filteredProjects);
-
-    return NextResponse.json({ message: "Project deleted successfully" });
+    await prisma.project.delete({
+      where: { id: params.id }
+    })
+    
+    return NextResponse.json({ message: "Project deleted successfully" })
   } catch (error) {
+    console.error('Error deleting project:', error)
     return NextResponse.json(
       { message: "Error deleting project" },
       { status: 500 }
-    );
+    )
   }
 }

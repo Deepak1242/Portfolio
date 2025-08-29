@@ -1,5 +1,31 @@
+"use client";
+import React, { useState, useEffect } from "react";
+
 const Navbar = () => {
   const name = "<Deepak/>";
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    let ticking = false;
+
+    const updateScrollProgress = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = Math.min((scrollTop / docHeight) * 100, 100);
+      setScrollProgress(scrollPercent);
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateScrollProgress);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <nav className="fixed top-0 w-full h-[65px] shadow-lg bg-[#03001417] backdrop-blur-md z-50 px-6 md:px-10">
@@ -22,6 +48,9 @@ const Navbar = () => {
           <a href="#projects" className="hover:text-white transition">
             Projects
           </a>
+          <a href="#contact" className="hover:text-white transition">
+            Contact
+          </a>
           <a
             href="/resume.pdf"
             download="resume.pdf"
@@ -30,6 +59,17 @@ const Navbar = () => {
             Resume
           </a>
         </div>
+      </div>
+      
+      {/* Scroll Progress Bar */}
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-800/30">
+        <div 
+          className="h-full bg-gradient-to-r from-purple-500 to-cyan-500 transform-gpu will-change-transform"
+          style={{ 
+            width: `${scrollProgress}%`,
+            transform: `translateZ(0)` 
+          }}
+        />
       </div>
     </nav>
   );

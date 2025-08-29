@@ -13,66 +13,70 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="flex flex-col items-center justify-center gap-3 h-full relative overflow-hidden pb-80 py-20"
-      style={{ transform: "scale(0.9" }}
+      className="flex flex-col items-center justify-center gap-12 relative overflow-hidden py-24"
     >
       <SkillText />
 
-      <div className="flex flex-row justify-around flex-wrap mt-4 gap-5 items-center">
-        {Skill_data.map((image, index) => (
-          <SkillDataProvider
-            key={index}
-            src={image.Image}
-            width={image.width}
-            height={image.height}
-            index={index}
-          />
-        ))}
-      </div>
+      <div className="w-full max-w-7xl mx-auto space-y-12">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-8 justify-items-center">
+          {Skill_data.map((image, index) => (
+            <SkillDataProvider
+              key={index}
+              src={image.Image}
+              width={image.width}
+              height={image.height}
+              index={index}
+            />
+          ))}
+        </div>
 
-      <div className="flex flex-row justify-around flex-wrap mt-4 gap-5 items-center">
-        {Frontend_skill.map((image, index) => (
-          <SkillDataProvider
-            key={index}
-            src={image.Image}
-            width={image.width}
-            height={image.height}
-            index={index}
-          />
-        ))}
-      </div>
-      <div className="flex flex-row justify-around flex-wrap mt-4 gap-5 items-center">
-        {Backend_skill.map((image, index) => (
-          <SkillDataProvider
-            key={index}
-            src={image.Image}
-            width={image.width}
-            height={image.height}
-            index={index}
-          />
-        ))}
-      </div>
-      <div className="flex flex-row justify-around flex-wrap mt-4 gap-5 items-center">
-        {Full_stack.map((image, index) => (
-          <SkillDataProvider
-            key={index}
-            src={image.Image}
-            width={image.width}
-            height={image.height}
-            index={index}
-          />
-        ))}
-      </div>
-      <div className="flex flex-row justify-around flex-wrap mt-4 gap-5 items-center">
-        {Other_skill.map((image, index) => (
-          <SkillDataProvider
-            key={index}
-            src={image.Image}
-            width={image.width}
-            height={image.height}
-            index={index}
-          />
-        ))}
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-8 justify-items-center">
+          {Frontend_skill.map((image, index) => (
+            <SkillDataProvider
+              key={index}
+              src={image.Image}
+              width={image.width}
+              height={image.height}
+              index={index}
+            />
+          ))}
+        </div>
+
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-8 justify-items-center">
+          {Backend_skill.map((image, index) => (
+            <SkillDataProvider
+              key={index}
+              src={image.Image}
+              width={image.width}
+              height={image.height}
+              index={index}
+            />
+          ))}
+        </div>
+
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-8 justify-items-center">
+          {Full_stack.map((image, index) => (
+            <SkillDataProvider
+              key={index}
+              src={image.Image}
+              width={image.width}
+              height={image.height}
+              index={index}
+            />
+          ))}
+        </div>
+
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-8 justify-items-center">
+          {Other_skill.map((image, index) => (
+            <SkillDataProvider
+              key={index}
+              src={image.Image}
+              width={image.width}
+              height={image.height}
+              index={index}
+            />
+          ))}
+        </div>
       </div>
 
       <div className="w-full h-full absolute">
