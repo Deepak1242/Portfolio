@@ -51,13 +51,7 @@ const Navbar = () => {
           <a href="#contact" className="hover:text-white transition">
             Contact
           </a>
-          <a
-            href="/resume.pdf"
-            download="resume.pdf"
-            className="bg-purple-600 hover:bg-purple-800 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition text-sm sm:text-base"
-          >
-            Resume
-          </a>
+          
         </div>
       </div>
       

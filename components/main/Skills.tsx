@@ -18,7 +18,7 @@ const Skills = () => {
       <SkillText />
 
       <div className="w-full max-w-7xl mx-auto space-y-12">
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-8 justify-items-center">
+        <div className="flex flex-wrap justify-center gap-8">
           {Skill_data.map((image, index) => (
             <SkillDataProvider
               key={index}
@@ -30,7 +30,7 @@ const Skills = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-8 justify-items-center">
+        <div className="flex flex-wrap justify-center gap-8">
           {Frontend_skill.map((image, index) => (
             <SkillDataProvider
               key={index}
@@ -42,7 +42,7 @@ const Skills = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-8 justify-items-center">
+        <div className="flex flex-wrap justify-center gap-8">
           {Backend_skill.map((image, index) => (
             <SkillDataProvider
               key={index}
@@ -54,7 +54,7 @@ const Skills = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-8 justify-items-center">
+        <div className="flex flex-wrap justify-center gap-8">
           {Full_stack.map((image, index) => (
             <SkillDataProvider
               key={index}
@@ -66,7 +66,7 @@ const Skills = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-8 justify-items-center">
+        <div className="flex flex-wrap justify-center gap-8">
           {Other_skill.map((image, index) => (
             <SkillDataProvider
               key={index}
