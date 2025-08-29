@@ -54,14 +54,14 @@ async function main() {
     {
       title: 'AWS Certified Developer',
       issuer: 'Amazon Web Services',
-      image: '/cert1.jpg',
+      imageUrl: '/cert1.jpg',
       credentialUrl: 'https://aws.amazon.com/certification/',
       issueDate: new Date('2023-01-15')
     },
     {
       title: 'React Developer Certification',
       issuer: 'Meta',
-      image: '/cert2.jpg',
+      imageUrl: '/cert2.jpg',
       credentialUrl: 'https://developers.facebook.com/certification/',
       issueDate: new Date('2023-03-20')
     }
