@@ -4,12 +4,15 @@ import CertificationCard from "@/components/sub/CertificationCard";
 import Link from "next/link";
 
 interface Certification {
-  id: number;
-  name: string;
-  organization: string;
-  date: string;
-  credentialId: string;
-  certificateLink: string;
+  id: string;
+  title: string;
+  issuer: string;
+  imageUrl: string;
+  credentialId: string | null;
+  credentialUrl: string | null;
+  issueDate: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 const AllCertificationsPage = () => {
@@ -41,11 +44,12 @@ const AllCertificationsPage = () => {
         {certifications.map((cert) => (
           <CertificationCard
             key={cert.id}
-            name={cert.name}
-            organization={cert.organization}
-            date={cert.date}
-            credentialId={cert.credentialId}
-            certificateLink={cert.certificateLink}
+            name={cert.title}
+            organization={cert.issuer}
+            date={cert.issueDate}
+            credentialId={cert.credentialId || ""}
+            certificateLink={cert.credentialUrl || ""}
+            imageUrl={cert.imageUrl}
           />
         ))}
       </main>

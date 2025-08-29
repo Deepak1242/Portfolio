@@ -11,7 +11,7 @@ import { FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="w-full h-full relative bg-transparent text-gray-200 shadow-lg p-4 z-[21]">
+    <div className="w-full h-full relative bg-transparent mt-20 text-gray-200 shadow-lg p-4 z-[21] border-t-2 pt-12">
       <div className="w-full flex flex-col items-center justify-center">
         <div className="w-full flex flex-row items-center justify-around flex-wrap">
           
@@ -19,7 +19,7 @@ const Footer = () => {
           <div className="min-w-[200px] flex flex-col items-center">
             <div className="font-bold text-lg">Community</div>
             <a
-              href="https://github.com/"
+              href="https://github.com/Deepak1242"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center my-3 cursor-pointer hover:text-blue-400"

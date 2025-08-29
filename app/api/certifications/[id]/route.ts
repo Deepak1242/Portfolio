@@ -1,84 +1,50 @@
-import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const certificationsFilePath = path.join(
-  process.cwd(),
-  "data",
-  "certifications.json"
-);
-
-const readCertificationsFromFile = () => {
-  const fileContent = fs.readFileSync(certificationsFilePath, "utf-8");
-  return JSON.parse(fileContent);
-};
-
-const writeCertificationsToFile = (certifications: any) => {
-  fs.writeFileSync(
-    certificationsFilePath,
-    JSON.stringify(certifications, null, 2)
-  );
-};
+import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
 export async function PUT(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    const certificationId = parseInt(params.id, 10);
-    const updatedCertificationData = await request.json();
-    let certifications = readCertificationsFromFile();
-    const certIndex = certifications.findIndex(
-      (c: any) => c.id === certificationId
-    );
+    const { title, issuer, issueDate, credentialId, credentialUrl, imageUrl } = await request.json()
 
-    if (certIndex === -1) {
-      return NextResponse.json(
-        { message: "Certification not found" },
-        { status: 404 }
-      );
-    }
+    const updatedCertification = await prisma.certification.update({
+      where: { id: params.id },
+      data: {
+        title,
+        issuer,
+        imageUrl: imageUrl || '',
+        credentialId: credentialId || null,
+        credentialUrl: credentialUrl || null,
+        issueDate: new Date(issueDate)
+      }
+    })
 
-    certifications[certIndex] = {
-      ...certifications[certIndex],
-      ...updatedCertificationData,
-    };
-    writeCertificationsToFile(certifications);
-
-    return NextResponse.json(certifications[certIndex]);
+    return NextResponse.json(updatedCertification)
   } catch (error) {
+    console.error('Error updating certification:', error)
     return NextResponse.json(
       { message: "Error updating certification" },
       { status: 500 }
-    );
+    )
   }
 }
 
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    const certificationId = parseInt(params.id, 10);
-    let certifications = readCertificationsFromFile();
-    const filteredCertifications = certifications.filter(
-      (c: any) => c.id !== certificationId
-    );
-
-    if (certifications.length === filteredCertifications.length) {
-      return NextResponse.json(
-        { message: "Certification not found" },
-        { status: 404 }
-      );
-    }
-
-    writeCertificationsToFile(filteredCertifications);
-
-    return NextResponse.json({ message: "Certification deleted successfully" });
+    await prisma.certification.delete({
+      where: { id: params.id }
+    })
+    
+    return NextResponse.json({ message: "Certification deleted successfully" })
   } catch (error) {
+    console.error('Error deleting certification:', error)
     return NextResponse.json(
       { message: "Error deleting certification" },
       { status: 500 }
-    );
+    )
   }
 }

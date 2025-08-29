@@ -2,57 +2,92 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import CertificationCard from "../sub/CertificationCard";
+import CertificationCardSkeleton from "../sub/CertificationCardSkeleton";
 
 interface Certification {
-  id: number;
-  name: string;
-  organization: string;
-  date: string;
-  credentialId: string;
-  certificateLink: string;
+  id: string;
+  title: string;
+  issuer: string;
+  imageUrl: string;
+  credentialId: string | null;
+  credentialUrl: string | null;
+  issueDate: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 const Certifications = () => {
   const [certifications, setCertifications] = useState<Certification[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCertifications = async () => {
-      const res = await fetch("/api/certifications");
-      const data = await res.json();
-      setCertifications(data);
+      try {
+        const res = await fetch("/api/certifications");
+        const data = await res.json();
+        // Ensure data is an array before setting it
+        setCertifications(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Error fetching certifications:", error);
+        setCertifications([]); // Set empty array on error
+      } finally {
+        setLoading(false);
+      }
     };
     fetchCertifications();
   }, []);
 
   return (
-    <div
-      className="flex flex-col items-center justify-center py-20"
+    <section
+      className="flex flex-col items-center justify-center"
       id="certifications"
     >
-      <h1 className="text-[40px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500 py-20">
-        My Certifications
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 px-10">
-        {certifications.slice(0, 4).map((cert) => (
-          <CertificationCard
-            key={cert.id}
-            name={cert.name}
-            organization={cert.organization}
-            date={cert.date}
-            credentialId={cert.credentialId}
-            certificateLink={cert.certificateLink}
-          />
-        ))}
+      <div className="text-center mb-10">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500 mb-4">
+          My Certifications
+        </h1>
+        <p className="text-lg text-purple-200 max-w-2xl mx-auto">
+          Professional certifications and achievements in technology
+        </p>
       </div>
-      {certifications.length > 4 && (
-        <Link
-          href="/certifications"
-          className="mt-10 px-6 py-3 font-semibold text-white bg-purple-600 rounded-md hover:bg-purple-700"
-        >
-          See More
-        </Link>
+      
+      <div className="w-full max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10">
+          {loading ? (
+            // Show skeleton cards while loading
+            Array.from({ length: 6 }).map((_, index) => (
+              <CertificationCardSkeleton key={index} />
+            ))
+          ) : (
+            certifications.slice(0, 6).map((cert) => (
+              <CertificationCard
+                key={cert.id}
+                name={cert.title}
+                organization={cert.issuer}
+                date={cert.issueDate}
+                credentialId={cert.credentialId || ""}
+                certificateLink={cert.credentialUrl || ""}
+                imageUrl={cert.imageUrl}
+              />
+            ))
+          )}
+        </div>
+      </div>
+      
+      {certifications.length > 6 && (
+        <div className="mt-5">
+          <Link
+            href="/certifications"
+            className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-purple-600 to-cyan-600 rounded-xl hover:from-purple-700 hover:to-cyan-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+          >
+            View All Certifications
+            <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </Link>
+        </div>
       )}
-    </div>
+    </section>
   );
 };
 

@@ -23,13 +23,19 @@ const ProjectCard = ({
 }: Props) => {
   return (
     <div className="relative overflow-hidden rounded-lg shadow-lg border border-[#2A0E61] bg-[#0c0c1b] flex flex-col h-full">
-      <Image
-        src={src}
-        alt={title}
-        width={1000}
-        height={1000}
-        className="w-full h-48 object-cover"
-      />
+      <div className="relative w-full h-48 bg-gray-800">
+        <Image
+          src={src}
+          alt={title}
+          width={1000}
+          height={1000}
+          className="w-full h-48 object-cover"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjMkEwRTYxIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTUwIiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+UHJvamVjdCBJbWFnZTwvdGV4dD4KPC9zdmc+';
+          }}
+        />
+      </div>
 
       <div className="relative p-4 flex flex-col flex-grow">
         <h1 className="text-2xl font-semibold text-white">{title}</h1>
