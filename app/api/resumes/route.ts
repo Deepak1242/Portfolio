@@ -21,16 +21,18 @@ export async function POST(request: Request) {
   try {
     const { title, fileUrl, fileName } = await request.json();
     
-    // Set all other resumes to inactive if this is the first one
-    const existingResumes = await prisma.resume.findMany();
-    const isFirst = existingResumes.length === 0;
+    // Set all existing resumes to inactive first
+    await prisma.resume.updateMany({
+      data: { isActive: false }
+    });
     
+    // Create new resume and set it as active
     const newResume = await prisma.resume.create({
       data: {
         title,
         fileUrl,
         fileName,
-        isActive: isFirst // First resume is automatically active
+        isActive: true // New resume is automatically active
       }
     });
     

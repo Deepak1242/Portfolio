@@ -23,16 +23,17 @@ const ProjectCard = ({
 }: Props) => {
   return (
     <div className="relative overflow-hidden rounded-lg shadow-lg border border-[#2A0E61] bg-[#0c0c1b] flex flex-col h-full">
-      <div className="relative w-full h-48 bg-gray-800">
+      <div className="relative w-full bg-gray-800 overflow-hidden" style={{ aspectRatio: '16/9' }}>
         <Image
           src={src}
           alt={title}
-          width={1000}
-          height={1000}
-          className="w-full h-48 object-cover"
+          width={800}
+          height={450}
+          className="w-full h-full object-cover"
+          style={{ objectFit: 'cover' }}
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjMkEwRTYxIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTUwIiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+UHJvamVjdCBJbWFnZTwvdGV4dD4KPC9zdmc+';
+            target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgdmlld0JveD0iMCAwIDgwMCA0NTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjMkEwRTYxIi8+Cjx0ZXh0IHg9IjQwMCIgeT0iMjI1IiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+UHJvamVjdCBJbWFnZTwvdGV4dD4KPC9zdmc+';
           }}
         />
       </div>

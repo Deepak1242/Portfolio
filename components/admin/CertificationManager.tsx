@@ -160,10 +160,20 @@ const CertificationManager = () => {
               <p className="text-sm text-blue-400">Uploading image...</p>
             )}
             {imagePreview && (
-              <img src={imagePreview} alt="Preview" className="w-32 h-20 object-cover rounded" />
+              <img 
+                src={imagePreview} 
+                alt="Preview of uploaded image" 
+                className="w-32 h-20 object-contain rounded"
+                style={{ width: 'auto', maxWidth: '100%', height: 'auto' }}
+              />
             )}
             {!imagePreview && isEditing?.imageUrl && (
-              <img src={isEditing.imageUrl} alt="Current" className="w-32 h-20 object-cover rounded" />
+              <img 
+                src={isEditing?.imageUrl} 
+                alt={`Current image for ${isEditing.title}`} 
+                className="w-32 h-20 object-contain rounded"
+                style={{ width: 'auto', maxWidth: '100%', height: 'auto' }}
+              />
             )}
           </div>
           <input 
@@ -235,6 +245,7 @@ const CertificationManager = () => {
                         src={cert.imageUrl} 
                         alt={cert.title} 
                         className="w-24 h-16 object-cover rounded"
+                        style={{ width: 'auto', height: 'auto' }}
                       />
                     </div>
                   )}

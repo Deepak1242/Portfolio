@@ -164,10 +164,20 @@ const ProjectManager = () => {
               <p className="text-sm text-blue-400">Uploading image...</p>
             )}
             {imagePreview && (
-              <img src={imagePreview} alt="Preview" className="w-32 h-20 object-cover rounded" />
+              <img 
+                src={imagePreview} 
+                alt="Preview" 
+                className="w-32 h-20 object-cover rounded"
+                style={{ width: 'auto', height: 'auto' }}
+              />
             )}
             {!imagePreview && isEditing?.imageUrl && (
-              <img src={isEditing.imageUrl} alt="Current" className="w-32 h-20 object-cover rounded" />
+              <img 
+                src={isEditing.imageUrl} 
+                alt="Current" 
+                className="w-32 h-20 object-cover rounded"
+                style={{ width: 'auto', height: 'auto' }}
+              />
             )}
           </div>
           <input 

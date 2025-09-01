@@ -103,7 +103,7 @@ const LoginPage = () => {
           </button>
         </form>
         <div className="text-center text-sm text-gray-400 mt-4">
-          
+          <p>Use: admin@example.com / admin123</p>
         </div>
       </div>
     </div>
