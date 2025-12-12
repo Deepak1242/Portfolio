@@ -6,7 +6,7 @@ import { SparklesIcon } from '@heroicons/react/24/solid'
 
 const SkillText = () => {
   return (
-    <div className='w-full h-auto flex flex-col items-center justify-center'>
+    <div className='w-full h-auto flex flex-col items-center justify-center mt-14'>
 <motion.div
           variants={slideInFromTop}
           className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9]"
@@ -18,7 +18,7 @@ const SkillText = () => {
         </motion.div>
         <motion.div
         variants={slideInFromLeft(0.5)}
-        className='text-[30px] text-white font-medium mt-[10px] text-center mb-[15px]'
+        className='text-[30px] text-white font-medium mt-[10px] text-center mb-[15px] font-outfit drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]'
         >
             Making apps with modern technologies
         </motion.div>

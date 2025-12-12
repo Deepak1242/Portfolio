@@ -1,69 +1,113 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
+const NAV_LINKS = [
+  { href: "#about-me", label: "About" },
+  { href: "#skills", label: "Skills" },
+  { href: "#projects", label: "Projects" },
+  { href: "#contact", label: "Contact" },
+];
+
 const Navbar = () => {
-  const name = "<Deepak/>";
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    let ticking = false;
-
-    const updateScrollProgress = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = Math.min((scrollTop / docHeight) * 100, 100);
-      setScrollProgress(scrollPercent);
-      ticking = false;
-    };
-
     const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(updateScrollProgress);
-        ticking = true;
-      }
+      setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <nav className="fixed top-0 w-full h-[65px] shadow-lg bg-[#03001417] backdrop-blur-md z-50 px-6 md:px-10">
-      <div className="flex items-center justify-between h-full w-full max-w-[1200px] mx-auto">
-        {/* Logo */}
-        <a href="#about-me" className="flex items-center">
-          <span className="font-bold text-[#9c85e1] text-lg sm:text-sm md:text-2xl lg:text-3xl">
-            {name}
-          </span>
-        </a>
-
-        {/* Menu Links (Text Resizes Automatically) */}
-        <div className="flex items-center space-x-4 sm:space-x-6 text-[#9c85e1] text-sm sm:text-[5px] md:text-lg lg:text-xl">
-          <a href="#about-me" className="hover:text-white transition">
-            About
-          </a>
-          <a href="#skills" className="hover:text-white transition">
-            Skills
-          </a>
-          <a href="#projects" className="hover:text-white transition">
-            Projects
-          </a>
-          <a href="#contact" className="hover:text-white transition">
-            Contact
-          </a>
-          
-        </div>
-      </div>
-      
-      {/* Scroll Progress Bar */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-800/30">
+    <nav className="fixed top-4 left-4 right-4 z-50">
+      {/* Main navbar container */}
+      <div className="max-w-5xl mx-auto relative">
+        {/* Animated neon glow border - clockwise moving light */}
         <div 
-          className="h-full bg-gradient-to-r from-purple-500 to-cyan-500 transform-gpu will-change-transform"
-          style={{ 
-            width: `${scrollProgress}%`,
-            transform: `translateZ(0)` 
+          className="absolute -inset-[2px] rounded-2xl overflow-hidden"
+          style={{
+            mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            maskComposite: 'exclude',
+            WebkitMaskComposite: 'xor',
+            padding: '2px',
           }}
-        />
+        >
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: `conic-gradient(from 0deg, transparent 10%, transparent 65%, rgba(168, 85, 247, 0.6) 75%, rgba(139, 92, 246, 1) 82%, rgba(168, 85, 247, 0.6) 89%, transparent 100%)`,
+              animation: 'spin 5s linear infinite',
+            }}
+          />
+        </div>
+
+        {/* Outer glow effect */}
+        <div className="absolute -inset-1 bg-purple-500/40 rounded-2xl blur-xl animate-pulse" style={{ animationDuration: '6s' }} />
+
+        {/* Glass navbar content */}
+        <div className="relative bg-[#0a0a1a]/50 backdrop-blur-xl rounded-2xl border border-purple-500/30">
+          <div className="px-6">
+            <div className="flex items-center justify-between h-16">
+              {/* Logo */}
+              <a href="#about-me" className="text-2xl font-bold text-purple-400 hover:text-purple-300 transition-colors">
+                {"<Deepak/>"}
+              </a>
+
+              {/* Desktop Navigation */}
+              <div className="hidden md:flex items-center gap-8">
+                {NAV_LINKS.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-gray-300 hover:text-white text-sm font-medium transition-colors relative group"
+                  >
+                    {link.label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 group-hover:w-full transition-all duration-300" />
+                  </a>
+                ))}
+              </div>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 text-gray-300 hover:text-white transition-colors"
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
+
+            {/* Mobile Menu */}
+            <div
+              className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
+                mobileMenuOpen ? "max-h-64 pb-4" : "max-h-0"
+              }`}
+            >
+              <div className="flex flex-col gap-2 pt-2 border-t border-purple-500/20">
+                {NAV_LINKS.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-gray-300 hover:text-white hover:bg-purple-500/10 text-base font-medium transition-all px-3 py-2 rounded-lg"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
   );

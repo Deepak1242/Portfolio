@@ -32,12 +32,12 @@ const HeroContent = () => {
           variants={slideInFromLeft(0.5)}
           className="flex flex-col gap-6"
         >
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold font-outfit text-white leading-tight drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
             <span className="text-[#b49bff] block">Hello,</span>
             <span className="block">I'm <span className="text-white">Deepak</span></span>
           </h1>
 
-          <div className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-purple-500 flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-2">
+          <div className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold font-outfit text-purple-500 flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-2 drop-shadow-[0_0_10px_rgba(168,85,247,0.4)]">
             <h2>I'm a</h2>
             <div className="text-[#b49bff]">
               <Typewriter

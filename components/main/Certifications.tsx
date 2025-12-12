@@ -39,13 +39,14 @@ const Certifications = () => {
 
   return (
     <section
-      className="flex flex-col items-center justify-center"
+      className="flex flex-col items-center justify-center py-20"
       id="certifications"
     >
-      <div className="text-center mb-10">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500 mb-4">
+      <div className="text-center mb-16 relative z-[20]">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-outfit text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500 mb-6 drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
           My Certifications
         </h1>
+        <div className="w-[100px] h-[4px] bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto rounded-full blur-[1px] mb-8" />
         <p className="text-lg text-purple-200 max-w-2xl mx-auto">
           Professional certifications and achievements in technology
         </p>

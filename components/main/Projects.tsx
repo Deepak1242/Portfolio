@@ -18,15 +18,21 @@ interface Project {
 const Projects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
+        setError(null);
         const res = await fetch("/api/projects");
+        if (!res.ok) {
+          throw new Error("Failed to fetch projects");
+        }
         const data = await res.json();
         setProjects(data);
       } catch (error) {
         console.error("Error fetching projects:", error);
+        setError("Failed to load projects. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -36,13 +42,14 @@ const Projects = () => {
 
   return (
     <section
-      className="flex flex-col items-center justify-center py-2"
+      className="flex flex-col items-center justify-center py-10"
       id="projects"
     >
-      <div className="text-center mb-10">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500 mb-4">
+      <div className="text-center mb-16 relative z-[20]">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-outfit text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500 mb-6 drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
           My Projects
         </h1>
+        <div className="w-[100px] h-[4px] bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto rounded-full blur-[1px] mb-8" />
         <p className="text-lg text-purple-200 max-w-2xl mx-auto">
           Explore my latest work and creative solutions
         </p>
@@ -55,6 +62,14 @@ const Projects = () => {
             Array.from({ length: 6 }).map((_, index) => (
               <ProjectCardSkeleton key={index} />
             ))
+          ) : error ? (
+            <div className="col-span-full text-center py-10">
+              <p className="text-red-400 text-lg">{error}</p>
+            </div>
+          ) : projects.length === 0 ? (
+            <div className="col-span-full text-center py-10">
+              <p className="text-purple-300 text-lg">No projects available yet.</p>
+            </div>
           ) : (
             projects.slice(0, 6).map((project) => (
               <ProjectCard
