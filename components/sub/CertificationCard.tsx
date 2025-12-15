@@ -19,7 +19,7 @@ const CertificationCard = ({
   imageUrl,
 }: Props) => {
   return (
-    <div className="relative overflow-hidden rounded-lg shadow-lg border border-[#2A0E61] bg-[#0c0c1b] flex flex-col h-full">
+    <div className="relative z-[30] overflow-hidden rounded-lg shadow-lg border border-[#2A0E61] bg-[#0c0c1b] flex flex-col h-full">
       <div className="relative w-full h-48 bg-gray-800">
         {imageUrl ? (
           <Image
@@ -67,7 +67,8 @@ const CertificationCard = ({
               href={certificateLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 bg-purple-600 text-white text-sm rounded hover:bg-purple-700"
+              className="relative z-[40] px-4 py-2 bg-purple-600 text-white text-sm rounded hover:bg-purple-700 cursor-pointer"
+              onClick={(e) => e.stopPropagation()}
             >
               View Credential
             </a>

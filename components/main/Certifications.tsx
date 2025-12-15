@@ -52,7 +52,7 @@ const Certifications = () => {
         </p>
       </div>
       
-      <div className="w-full max-w-7xl mx-auto">
+      <div className="w-full max-w-7xl mx-auto relative z-[30]">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10">
           {loading ? (
             // Show skeleton cards while loading

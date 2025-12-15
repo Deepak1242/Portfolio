@@ -22,7 +22,7 @@ const ProjectCard = ({
   date,
 }: Props) => {
   return (
-    <div className="relative overflow-hidden rounded-lg shadow-lg border border-[#2A0E61] bg-[#0c0c1b] flex flex-col h-full">
+    <div className="relative z-[30] overflow-hidden rounded-lg shadow-lg border border-[#2A0E61] bg-[#0c0c1b] flex flex-col h-full">
       <div className="relative w-full bg-gray-800 overflow-hidden" style={{ aspectRatio: '16/9' }}>
         <Image
           src={src}
@@ -55,12 +55,24 @@ const ProjectCard = ({
         <div className="mt-4 flex justify-between items-center">
           <div className="flex gap-4">
             {githubLink && (
-              <a href={githubLink} target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-500">
+              <a 
+                href={githubLink} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="relative z-[40] text-white hover:text-purple-500 cursor-pointer"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <FaGithub size={24} />
               </a>
             )}
             {liveDemoLink && (
-              <a href={liveDemoLink} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-purple-600 text-white text-sm rounded hover:bg-purple-700">
+              <a 
+                href={liveDemoLink} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="relative z-[40] px-4 py-2 bg-purple-600 text-white text-sm rounded hover:bg-purple-700 cursor-pointer"
+                onClick={(e) => e.stopPropagation()}
+              >
                 Live Demo
               </a>
             )}
